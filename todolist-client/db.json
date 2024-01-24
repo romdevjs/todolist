@@ -1,0 +1,70 @@
+{
+  "lists": [
+    {
+      "id": 1,
+      "uid": 1,
+      "title": "First list",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "First task",
+          "isActive": true
+        },
+        {
+          "id": 2,
+          "title": "Second task",
+          "isActive": false
+        },
+        {
+          "id": 3,
+          "title": "Third task",
+          "isActive": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "uid": 1,
+      "title": "Second list",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "First task",
+          "isActive": true
+        },
+        {
+          "id": 2,
+          "title": "Second task",
+          "isActive": false
+        },
+        {
+          "id": 3,
+          "title": "Third task",
+          "isActive": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "uid": 2,
+      "title": "Third list",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "First task",
+          "isActive": true
+        },
+        {
+          "id": 2,
+          "title": "Second task",
+          "isActive": false
+        },
+        {
+          "id": 3,
+          "title": "Third task",
+          "isActive": true
+        }
+      ]
+    }
+  ]
+}
