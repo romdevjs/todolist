@@ -1,14 +1,15 @@
-import { ChangeEvent, KeyboardEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 import { Input } from './Input';
-import { Button } from './Button';
+import { IconButton } from './IconButton';
 
 interface AddItemProps {
-  clickHandler: (value: string) => void
+  onClick: (value: string) => void
   maxValueLength: number
   placeholder?:string
+  className?:string
 }
 
-export const AddItem: FC<AddItemProps> = ({ maxValueLength, clickHandler, placeholder }) => {
+export const AddItem: FC<AddItemProps> = ({ className, maxValueLength, onClick, placeholder }) => {
   const [value, setValue] = useState('');
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value);
@@ -21,13 +22,13 @@ export const AddItem: FC<AddItemProps> = ({ maxValueLength, clickHandler, placeh
 
   const handleClick = () => {
     if (!(value.length === 0 || value.length > maxValueLength)) {
-      clickHandler(value);
+      onClick(value);
     }
   }
 
 
   return (
-    <div className="adding">
+    <div className={className ? `adding ${className}` : 'adding'}>
       <Input
         error={value.length > maxValueLength}
         onChange={changeHandler} value={value}
@@ -36,10 +37,10 @@ export const AddItem: FC<AddItemProps> = ({ maxValueLength, clickHandler, placeh
         placeholder={placeholder || 'New todolist'}
       />
 
-      <Button
+      <IconButton
         onClick={handleClick}
         disabled={value.length === 0 || value.length > maxValueLength}
-        circle
+        color='primary'
       />
     </div>
   )

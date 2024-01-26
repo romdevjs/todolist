@@ -9,13 +9,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 type Color = 'primary' | 'red';
 type Variant = 'add' | 'delete';
 
-export const Button: FC<ButtonProps> = ({ variant, color, circle, ...props }) => {
+export const Button: FC<ButtonProps> = ({ className, variant, color, circle, ...props }) => {
   const buttonColor: Color = color ? color : 'primary';
   const buttonCircle = circle ? 'circle' : '';
-  const className = `button ${buttonColor} ${buttonCircle}`;
+  const styles = `button ${buttonColor} ${buttonCircle}`;
 
   return (
-    <button className={className} {...props}>
+    <button className={className ? `${styles} ${className}` : styles} {...props}>
       {(!variant || variant === 'add') && <>&#43;</>}
       {variant === 'delete' && <>&#10799;</>}
     </button>
