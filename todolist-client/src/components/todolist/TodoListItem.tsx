@@ -1,11 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ListDTO } from '../../types/ListDTO';
 import { TaskList } from '../task/TaskList';
 import { AddItem } from '../common/AddItem';
 import { maxTodoListTitleLength } from '../../utils/const';
 import { EditTitle } from '../common/EditTitle';
-import { OutlineButton } from '../common/OutlineButton';
 import { IconButton } from '../common/IconButton';
+import { Button } from '../common/Button';
 
 interface ListProps extends ListDTO {
 
@@ -13,8 +13,9 @@ interface ListProps extends ListDTO {
 
 type FilterValue = 'all' | 'active' | 'completed';
 
-export const TodoListItem: FC<ListProps> = ({ id,title, tasks }) => {
+export const TodoListItem: FC<ListProps> = ({ id, title, tasks }) => {
   const [currentTasks, setCurrentTasks] = useState(tasks);
+  const [filter, setFilter] = useState<FilterValue>('all');
   const addTask = (title: string) => {
     console.log(title)
   }
@@ -22,24 +23,25 @@ export const TodoListItem: FC<ListProps> = ({ id,title, tasks }) => {
     console.log(value)
   }
 
-  const filterTasks = (value: FilterValue) => {
-    let filteredTasks = tasks;
-    if (value === 'active') filteredTasks = tasks.filter(f => f.isActive);
-    if (value === 'completed') filteredTasks = tasks.filter(f => !f.isActive);
-    setCurrentTasks(filteredTasks);
-  }
+  const filterTasks = (value: FilterValue) => setFilter(value);
 
   const deleteTodoList = () => {
     console.log(id)
   }
 
+  useEffect(() => {
+    if (filter === 'all') setCurrentTasks(tasks);
+    if (filter === 'active') setCurrentTasks(tasks.filter(f => f.isActive));
+    if (filter === 'completed') setCurrentTasks(tasks.filter(f => !f.isActive));
+  }, [filter]);
+
   return (
     <article className="todolists__item">
       <IconButton
-        className='todolists__item-btn'
+        className="todolists__item-btn"
         onClick={deleteTodoList}
-        color='error'
-        icon='trash'
+        color="error"
+        icon="trash"
       />
       <EditTitle
         className="todolists__item-title"
@@ -50,9 +52,23 @@ export const TodoListItem: FC<ListProps> = ({ id,title, tasks }) => {
       <AddItem maxValueLength={maxTodoListTitleLength} onClick={addTask} placeholder={'New task'}/>
       <TaskList tasks={currentTasks}/>
       <div className="todolists__item-buttons">
-        <OutlineButton onClick={() => filterTasks('all')} text="All"/>
-        <OutlineButton onClick={() => filterTasks('active')} color="primary" text="Active"/>
-        <OutlineButton onClick={() => filterTasks('completed')} color="success" text="Completed"/>
+        <Button
+          onClick={() => filterTasks('all')}
+          text="All"
+          isActive={filter === 'all'}
+        />
+        <Button
+          onClick={() => filterTasks('active')}
+          color="primary"
+          text="Active"
+          isActive={filter === 'active'}
+        />
+        <Button
+          onClick={() => filterTasks('completed')}
+          color="success"
+          text="Completed"
+          isActive={filter === 'completed'}
+        />
       </div>
     </article>
   )

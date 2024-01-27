@@ -1,23 +1,24 @@
 import { ButtonHTMLAttributes, FC } from 'react';
+import { Color } from '../../types/Color';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  circle?: boolean
   color?: Color
-  variant?:Variant
+  text:string
+  isActive?:boolean
 }
 
-type Color = 'primary' | 'red';
-type Variant = 'add' | 'delete';
 
-export const Button: FC<ButtonProps> = ({ className, variant, color, circle, ...props }) => {
-  const buttonColor: Color = color ? color : 'primary';
-  const buttonCircle = circle ? 'circle' : '';
-  const styles = `button ${buttonColor} ${buttonCircle}`;
+export const Button: FC<ButtonProps> = ({ className, color, text,isActive, ...props }) => {
+  const modification = color ? `btn_${color} button_${color}` : '';
+  const activeClass = isActive ? 'button_active' : '';
+  const styles = `btn button ${modification} ${activeClass}`;
 
   return (
     <button className={className ? `${styles} ${className}` : styles} {...props}>
-      {(!variant || variant === 'add') && <>&#43;</>}
-      {variant === 'delete' && <>&#10799;</>}
+      <span className="button__wrapper">
+        <span className="button__text">{text}</span>
+        <span className="btn__background button__background"/>
+      </span>
     </button>
   )
 }

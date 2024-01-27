@@ -26,8 +26,9 @@ export const TaskItem:FC<TaskItemProps> = ({id,title,isActive}) => {
   return(
     <li className="tasks__item">
       <Checkbox
-        isChecked={isActive}
+        isChecked={!isActive}
         onChange={changeTaskStatus}
+        color='success'
       />
 
       <EditTitle

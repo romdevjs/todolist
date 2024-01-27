@@ -1,0 +1,20 @@
+.input {
+  height: 100%;
+  width: 150px;
+  border: 1px solid $default;
+  border-radius: 2px;
+  font-size: 16px;
+  padding: 5px;
+
+  &:focus {
+    outline: 1px solid $default;
+  }
+
+  &.error {
+    border: 1px solid $error;
+
+    &:focus {
+      outline: 1px solid $error;
+    }
+  }
+}

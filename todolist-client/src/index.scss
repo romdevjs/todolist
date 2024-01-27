@@ -1,8 +1,4 @@
-@import './styles/variables';
-@import './styles/header';
-@import './styles/todolist';
-@import './styles/task';
-@import './styles/common';
+@import './styles/imports';
 
 *, *:after, *:before {
   box-sizing: border-box;
@@ -34,6 +30,9 @@ a, button {
   outline: none;
   cursor: pointer;
   transition: .3s all;
+  font-weight: 500;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  padding: 0;
 
   &:disabled{
     cursor: not-allowed;
@@ -59,10 +58,6 @@ ul,ol{
   li{
     padding: 0;
   }
-}
-
-.container{
-  padding: 0 8%;
 }
 
 

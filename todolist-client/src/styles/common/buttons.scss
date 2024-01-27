@@ -1,0 +1,211 @@
+.button {
+  min-width: 6.4rem;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  overflow: hidden;
+  padding: 0;
+
+  &__wrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 6px 15px;
+    position: relative;
+  }
+
+  &__text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.4rem;
+    line-height: 1.75em;
+    letter-spacing: .02em;
+    color: $default;
+    z-index: 2;
+  }
+
+  &:hover,
+  &:focus {
+    .button__background {
+      opacity: .1;
+    }
+  }
+
+  &.button_active {
+    border: 1px solid $default;
+  }
+
+  &_primary {
+    &.button_active {
+      border-color: $primary;
+    }
+
+    .button__text {
+      color: $primary;
+    }
+  }
+
+  &_error {
+    &.button_active {
+      border-color: $error;
+    }
+
+    .button__text {
+      color: $error;
+    }
+  }
+
+  &_secondary {
+    &.button_active {
+      border-color: $secondary;
+    }
+
+    .button__text {
+      color: $secondary;
+    }
+  }
+
+  &_success {
+    &.button_active {
+      border-color: $success;
+    }
+
+    .button__text {
+      color: $success;
+    }
+  }
+}
+
+.icon-button {
+  width: 4rem;
+  height: 4rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0);
+  transition: .3s all;
+
+  &__wrapper {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    position: relative;
+  }
+
+  &__background {
+    border-radius: 50%;
+  }
+
+  &__svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    z-index: 2;
+  }
+
+  &:disabled {
+    opacity: .8;
+  }
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    .icon-button__background {
+      opacity: .1;
+    }
+  }
+
+  &:active:not(:disabled) {
+    .icon-button__background {
+      opacity: .3;
+    }
+  }
+
+  &_primary {
+    .icon-button__svg {
+      fill: $primary;
+    }
+  }
+
+  &_error {
+    .icon-button__svg {
+      fill: $error;
+    }
+  }
+
+  &_secondary {
+    .icon-button__svg {
+      fill: $secondary;
+    }
+  }
+
+  &_success {
+    .icon-button__svg {
+      fill: $success;
+    }
+  }
+}
+
+.btn {
+  padding: 0;
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    background-color: $default;
+    z-index: 1;
+    transition: .3s all;
+    opacity: 0;
+  }
+
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
+    .btn__background {
+      opacity: .1;
+    }
+  }
+
+  &:active:not(:disabled) {
+    .btn__background {
+      opacity: .3;
+    }
+  }
+
+  &_primary {
+    .btn__background {
+      background: $primary;
+    }
+  }
+
+  &_error {
+    .btn__background {
+      background: $error;
+    }
+  }
+
+  &_secondary {
+    .btn__background {
+      background: $secondary;
+    }
+  }
+
+  &_success {
+    .btn__background {
+      background: $success;
+    }
+  }
+}
