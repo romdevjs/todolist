@@ -63,6 +63,21 @@
           "id": 3,
           "title": "Third task",
           "isActive": true
+        },
+        {
+          "id": 4,
+          "title": "Fourth task",
+          "isActive": true
+        },
+        {
+          "id": 5,
+          "title": "Five task",
+          "isActive": false
+        },
+        {
+          "id": 6,
+          "title": "Sixth task",
+          "isActive": true
         }
       ]
     }

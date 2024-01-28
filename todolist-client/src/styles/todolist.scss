@@ -18,7 +18,7 @@
     justify-content: start;
     align-items: start;
     flex-direction: column;
-    gap: 20px;
+    gap: 35px;
     max-width: 300px;
     min-height: 300px;
     height: auto;
@@ -34,7 +34,12 @@
       top: 10px;
     }
 
+    &-adding{
+      width: 250px;
+    }
+
     &-title {
+      font-size: 2rem;
       height: 2rem;
       max-width: 75%;
       overflow: hidden;

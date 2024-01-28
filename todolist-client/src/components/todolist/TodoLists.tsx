@@ -13,7 +13,13 @@ export const TodoLists:FC = () => {
   return(
     <div className='todolists'>
       <div className="container">
-        <AddItem className='todolists__adding' onClick={addTodoList} maxValueLength={maxTodoListTitleLength}/>
+        <AddItem
+          color='secondary'
+          className='todolists__adding'
+          onClick={addTodoList}
+          maxValueLength={maxTodoListTitleLength}
+        />
+
         <div className="todolists__wrapper">
           {lists && lists.map(l => <TodoListItem key={l.id} id={l.id} uid={l.uid} title={l.title} tasks={l.tasks}/>)}
         </div>

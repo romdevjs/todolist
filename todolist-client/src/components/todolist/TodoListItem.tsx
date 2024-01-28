@@ -45,12 +45,19 @@ export const TodoListItem: FC<ListProps> = ({ id, title, tasks }) => {
       />
       <EditTitle
         className="todolists__item-title"
-        title={title + '11111111111111111111111111'}
+        title={title}
         changeTitle={changeTodoListTitle}
         maxValueLength={maxTodoListTitleLength}
       />
-      <AddItem maxValueLength={maxTodoListTitleLength} onClick={addTask} placeholder={'New task'}/>
+      <AddItem
+        className='todolists__item-adding'
+        maxValueLength={maxTodoListTitleLength}
+        onClick={addTask}
+        color='primary'
+      />
+
       <TaskList tasks={currentTasks}/>
+
       <div className="todolists__item-buttons">
         <Button
           onClick={() => filterTasks('all')}

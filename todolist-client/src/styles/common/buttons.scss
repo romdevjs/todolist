@@ -31,7 +31,7 @@
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     .button__background {
       opacity: .1;
     }
@@ -173,7 +173,7 @@
   }
 
   &:hover:not(:disabled),
-  &:focus:not(:disabled) {
+  &:focus-visible:not(:disabled) {
     .btn__background {
       opacity: .1;
     }

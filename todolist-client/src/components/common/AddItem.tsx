@@ -5,11 +5,11 @@ import { IconButton } from './IconButton';
 interface AddItemProps {
   onClick: (value: string) => void
   maxValueLength: number
-  placeholder?:string
-  className?:string
+  className?: string
+  color?: 'primary' | 'secondary' | 'success'
 }
 
-export const AddItem: FC<AddItemProps> = ({ className, maxValueLength, onClick, placeholder }) => {
+export const AddItem: FC<AddItemProps> = ({ className, color, maxValueLength, onClick }) => {
   const [value, setValue] = useState('');
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value);
@@ -30,17 +30,17 @@ export const AddItem: FC<AddItemProps> = ({ className, maxValueLength, onClick, 
   return (
     <div className={className ? `adding ${className}` : 'adding'}>
       <Input
-        error={value.length > maxValueLength}
+        color={value.length > maxValueLength ? 'error' : color}
         onChange={changeHandler} value={value}
         onKeyDown={pressKeyHandler}
         type="text"
-        placeholder={placeholder || 'New todolist'}
+        placeholder='Title'
       />
 
       <IconButton
         onClick={handleClick}
         disabled={value.length === 0 || value.length > maxValueLength}
-        color='primary'
+        color={value.length > maxValueLength ? 'error' : color}
       />
     </div>
   )
