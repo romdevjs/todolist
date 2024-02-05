@@ -2,34 +2,39 @@ const {Todolists} = require("./TodolistsSchema");
 
 class TodolistsService {
   async getTodolists(uid) {
-    const todos = await Todolists.find({uid});
-    return todos;
+    try {
+      const todos = await Todolists.find({uid});
+      return todos;
+    } catch (e) {
+      throw e;
+    }
   }
 
   async createTodolist(data) {
-    const tl = new Todolists(data);
-    await tl.save();
-    return tl;
+    try {
+      const tl = new Todolists(data);
+      await tl.save();
+      return tl;
+    } catch (e) {
+      throw e;
+    }
   }
 
   async updateTodolist({uid, _id, title}) {
-    const todo = await Todolists.findOne({_id, uid});
-
-    if (todo) {
-      await Todolists.updateOne({uid, _id}, {title});
-      return todo;
-    } else {
-
+    try {
+      await Todolists.findOneAndUpdate({uid, _id}, {title});
+      return await Todolists.findOne({uid, _id});
+    } catch (e) {
+      throw e;
     }
-
   }
 
-  async deleteTodolist({uid,_id}) {
-    const todo = await Todolists.findOne({_id, uid});
-
-    if(todo){
-      const deleted = await Todolists.deleteOne({_id,uid});
-      return deleted;
+  async deleteTodolist({uid, _id}) {
+    try {
+      await Todolists.findOneAndDelete({_id, uid});
+      return {message: 'Todolist has been deleted successfully!'};
+    } catch (e) {
+      throw e;
     }
   }
 }
