@@ -9,11 +9,12 @@ interface CheckboxProps {
 }
 
 export const Checkbox: FC<CheckboxProps> = ({ className,isChecked, color, onChange }) => {
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => onChange(e.currentTarget.checked);
   const checkedClassName = isChecked ? 'checked' : '';
   const modification = color ? `btn_${color} checbox_${color}` : '';
   const iconModification = color ? `checkbox__icon_${color}` : '';
   const styles = `btn checkbox ${checkedClassName} ${modification}`;
+
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => onChange(!e.currentTarget.checked);
 
   return (
     <button className={className ? `${styles} ${className}` : styles}>

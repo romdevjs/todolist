@@ -3,32 +3,28 @@ import { Checkbox } from '../common/Checkbox';
 import { EditTitle } from '../common/EditTitle';
 import { maxTaskTitleLength } from '../../utils/const';
 import { IconButton } from '../common/IconButton';
+import { UpdateTaskCallBackProps } from '../../types/TaskTypes';
 
 interface TaskItemProps {
-  id:number
-  isActive:boolean
-  title:string
+  id: string
+  tid: string
+  title: string
+  isActive: boolean
+  updateTaskCallBack: (data: UpdateTaskCallBackProps) => void
+  deleteTaskCallBack: (id: string) => void
 }
 
-export const TaskItem:FC<TaskItemProps> = ({id,title,isActive}) => {
-  const changeTaskStatus = (value:boolean) => {
-    console.log(id,value)
-  }
+export const TaskItem: FC<TaskItemProps> = ({ id, title, isActive, deleteTaskCallBack, updateTaskCallBack }) => {
+  const changeTaskStatus = (isActive: boolean) => updateTaskCallBack({ id, title, isActive });
+  const changeTaskTitle = (title: string) => updateTaskCallBack({ id, title, isActive });
+  const deleteTask = () => deleteTaskCallBack(id);
 
-  const changeTaskTitle = (value:string) => {
-    console.log(value)
-  }
-
-  const deleteTask = () => {
-    console.log(id)
-  }
-
-  return(
+  return (
     <li className="tasks__item">
       <Checkbox
         isChecked={!isActive}
         onChange={changeTaskStatus}
-        color='success'
+        color="success"
       />
 
       <EditTitle
@@ -38,7 +34,7 @@ export const TaskItem:FC<TaskItemProps> = ({id,title,isActive}) => {
         maxValueLength={maxTaskTitleLength}
       />
 
-      <IconButton onClick={deleteTask} icon='trash' color='error' className='tasks__item-btn'/>
+      <IconButton onClick={deleteTask} icon="trash" color="error" className="tasks__item-btn"/>
     </li>
   )
 }

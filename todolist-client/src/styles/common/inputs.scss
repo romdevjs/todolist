@@ -47,6 +47,23 @@
     margin: 0;
   }
 
+  &.text-field_edit{
+    .text-field__input{
+      border: none;
+      border-bottom: 2px solid rgba(0, 0, 0, .3);
+      border-radius: 0;
+      padding: 0;
+    }
+
+    .text-field__label{
+      display: none;
+    }
+
+    .text-field__input ~ .text-field__label{
+      display: none;
+    }
+  }
+
   &_primary{
     .text-field__input:focus-visible{
       border-color: $primary;
@@ -86,4 +103,6 @@
       color: $secondary;
     }
   }
+
+
 }

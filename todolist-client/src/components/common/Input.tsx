@@ -3,11 +3,13 @@ import { Color } from '../../types/Color';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   color?:Color
+  editMode?:boolean
 }
 
-export const Input: FC<InputProps> = ({placeholder, color, className, ...props }) => {
+export const Input: FC<InputProps> = ({placeholder, color, className, editMode, ...props }) => {
   const modification = color ? `text-field_${color}` : '';
-  const styles = `text-field ${modification}`;
+  const editModeClassName = editMode ? 'text-field_edit' : '';
+  const styles = `text-field ${modification} ${editModeClassName}`;
 
   return (
     <div className={className ? `${styles} ${className}` : styles}>

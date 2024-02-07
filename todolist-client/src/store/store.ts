@@ -1,15 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import { listApi } from './api/listApi';
+import { todolistsApi } from './api/todolistsApi';
+import { tasksApi } from './api/tasksApi';
 
 
 export const store = configureStore({
   reducer: {
-    [listApi.reducerPath]: listApi.reducer
+    [todolistsApi.reducerPath]: todolistsApi.reducer,
+    [tasksApi.reducerPath]:tasksApi.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(
-      listApi.middleware
+      todolistsApi.middleware,
+      tasksApi.middleware
     )
 })
 

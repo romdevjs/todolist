@@ -17,12 +17,14 @@ export const AddItem: FC<AddItemProps> = ({ className, color, maxValueLength, on
   const pressKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleClick();
+      setValue('');
     }
   }
 
   const handleClick = () => {
     if (!(value.length === 0 || value.length > maxValueLength)) {
       onClick(value);
+      setValue('');
     }
   }
 

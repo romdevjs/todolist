@@ -5,6 +5,22 @@
   align-items: start;
   flex-direction: column;
   gap: 20px;
+  overflow-y: auto;
+
+  scrollbar-width: auto;
+  scrollbar-color: $secondary;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(21,101,192,.3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary;
+  }
 
   &__item {
     width: 100%;

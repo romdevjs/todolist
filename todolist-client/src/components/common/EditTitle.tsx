@@ -14,19 +14,22 @@ export const EditTitle: FC<EditTitleProps> = ({ className, maxValueLength, chang
 
   const doubleClickHandler = () => setIsEditMode(true);
   const changeValue = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value);
+  const offEditMode = () => {
+    setValue(title);
+    setIsEditMode(false);
+  };
   const keyBoardHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      if (value.length > 0 && value.length < maxValueLength) {
+      if (value.length > 0 && value.length <= maxValueLength) {
         changeTitle(value);
         setIsEditMode(false);
       }
     }
+
     if (e.key === 'Delete') setValue('');
-    if (e.key === 'Escape') {
-      setValue(title);
-      setIsEditMode(false);
-    }
-  }
+    if (e.key === 'Escape') offEditMode();
+  };
+  const blurHandler = () => offEditMode();
 
   return (
     <>
@@ -35,9 +38,12 @@ export const EditTitle: FC<EditTitleProps> = ({ className, maxValueLength, chang
         <Input
           onChange={changeValue}
           onKeyDown={keyBoardHandler}
+          onBlur={blurHandler}
           value={value}
-          error={value.length === 0 || value.length > maxValueLength}
+          color={value.length === 0 || value.length > maxValueLength ? 'error' : 'primary'}
           autoFocus
+          placeholder='Title'
+          editMode
         />
       }
       {!isEditMode && <h4 className={className} onDoubleClick={doubleClickHandler}>{title}</h4>}
