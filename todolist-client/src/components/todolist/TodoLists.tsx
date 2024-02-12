@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, LegacyRef, useRef } from 'react';
 import {
   useAddTodoListMutation,
   useDeleteTodoListMutation,
@@ -11,9 +11,12 @@ import { maxTodoListTitleLength } from '../../utils/const';
 import { DeleteTodoListRequest } from '../../types/TodoListTypes';
 import { useAddTaskMutation, useDeleteTaskMutation, useUpdateTaskMutation } from '../../store/api/tasksApi';
 import { CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest } from '../../types/TaskTypes';
+import { Empty } from '../common/Empty';
+import { Loader } from '../common/Loader';
 
 export const TodoLists: FC = () => {
-  const { data: lists } = useGetTodoListsQuery();
+  const inputRef: LegacyRef<HTMLInputElement> = useRef<HTMLInputElement>(null);
+  const { data: lists, isSuccess, isFetching } = useGetTodoListsQuery();
   const [createTodoListMutation] = useAddTodoListMutation();
   const [deleteTodoListMutation] = useDeleteTodoListMutation();
   const [updateTodoListMutation] = useUpdateTodoListMutation();
@@ -30,29 +33,49 @@ export const TodoLists: FC = () => {
   const updateTask = (data: UpdateTaskRequest) => updateTaskMutation(data);
   const deleteTask = (data: DeleteTaskRequest) => deleteTaskMutation(data);
 
+  const focusToInput = () => inputRef.current?.focus();
+
+
   return (
     <div className="todolists">
-      <AddItem
-        color="secondary"
-        className="todolists__adding"
-        onClick={addTodoList}
-        maxValueLength={maxTodoListTitleLength}
-      />
+      {isFetching && <Loader/>}
 
-      <div className="todolists__wrapper">
-        {lists && lists.map(l =>
-          <TodoListItem
-            key={l._id}
-            tid={l._id}
-            title={l.title}
-            deleteTodoListCallBack={deleteTodoList}
-            updateTodoListCallBack={updateTodoList}
-            updateTaskCallBack={updateTask}
-            deleteTaskCallBack={deleteTask}
-            addTaskCallBack={addTask}
+      {isSuccess && !isFetching &&
+        <>
+          <AddItem
+            color="secondary"
+            className="todolists__adding"
+            onClick={addTodoList}
+            maxValueLength={maxTodoListTitleLength}
+            disabled={false}
+            inputRef={inputRef}
           />
-        )}
-      </div>
+          <div className="todolists__wrapper">
+            {lists.length > 0
+              ? <>
+                {lists && lists.map(l =>
+                  <TodoListItem
+                    key={l._id}
+                    tid={l._id}
+                    title={l.title}
+                    deleteTodoListCallBack={deleteTodoList}
+                    updateTodoListCallBack={updateTodoList}
+                    updateTaskCallBack={updateTask}
+                    deleteTaskCallBack={deleteTask}
+                    addTaskCallBack={addTask}
+                  />
+                )}
+              </>
+              : <Empty>
+                <div className="todolists__empty">
+                  <div>Empty</div>
+                  <button onClick={focusToInput} className="todolists__empty-btn">Click to create your first list</button>
+                </div>
+              </Empty>
+            }
+          </div>
+        </>
+      }
     </div>
   )
 }

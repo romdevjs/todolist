@@ -34,6 +34,7 @@
     bottom: 0;
     left: 1.6rem;
     margin: auto 0;
+    opacity: 0;
   }
 
   .text-field__input:focus ~ .text-field__label {
@@ -45,6 +46,7 @@
     color: $default;
     top: -8px;
     margin: 0;
+    opacity: 1;
   }
 
   &.text-field_edit{

@@ -6,13 +6,14 @@ interface EditTitleProps {
   changeTitle: (value: string) => void
   className?: string
   maxValueLength: number
+  disabled?:boolean
 }
 
-export const EditTitle: FC<EditTitleProps> = ({ className, maxValueLength, changeTitle, title }) => {
+export const EditTitle: FC<EditTitleProps> = ({ className, maxValueLength, changeTitle, title, disabled }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [value, setValue] = useState(title);
 
-  const doubleClickHandler = () => setIsEditMode(true);
+  const doubleClickHandler = () => !disabled && setIsEditMode(true);
   const changeValue = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value);
   const offEditMode = () => {
     setValue(title);

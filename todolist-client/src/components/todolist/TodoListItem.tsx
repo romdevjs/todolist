@@ -41,7 +41,7 @@ export const TodoListItem: FC<ListProps> = (
   const [currentTasks, setCurrentTasks] = useState<TaskDTO[]>([]);
   const [filter, setFilter] = useState<FilterValue>('all');
 
-  const { data: tasks } = useGetTasksQuery({ tid });
+  const { data: tasks, isFetching } = useGetTasksQuery({ tid });
 
   const changeTodoListTitle = (title: string) => updateTodoListCallBack({ tid, title });
   const deleteTodoList = () => deleteTodoListCallBack({ tid });
@@ -67,18 +67,21 @@ export const TodoListItem: FC<ListProps> = (
         onClick={deleteTodoList}
         color="error"
         icon="trash"
+        disabled={isFetching}
       />
       <EditTitle
         className="todolists__item-title"
         title={title}
         changeTitle={changeTodoListTitle}
         maxValueLength={maxTodoListTitleLength}
+        disabled={isFetching}
       />
       <AddItem
         className="todolists__item-adding"
         maxValueLength={maxTodoListTitleLength}
         onClick={addTask}
         color="primary"
+        disabled={isFetching}
       />
 
       {currentTasks.length > 0
@@ -95,18 +98,21 @@ export const TodoListItem: FC<ListProps> = (
           onClick={() => filterTasks('all')}
           text="All"
           isActive={filter === 'all'}
+          disabled={isFetching}
         />
         <Button
           onClick={() => filterTasks('active')}
           color="primary"
           text="Active"
           isActive={filter === 'active'}
+          disabled={isFetching}
         />
         <Button
           onClick={() => filterTasks('completed')}
           color="success"
           text="Completed"
           isActive={filter === 'completed'}
+          disabled={isFetching}
         />
       </div>}
     </article>

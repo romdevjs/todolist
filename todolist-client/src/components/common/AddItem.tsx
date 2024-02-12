@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, FC, KeyboardEvent, LegacyRef, useState } from 'react';
 import { Input } from './Input';
 import { IconButton } from './IconButton';
 
@@ -7,9 +7,11 @@ interface AddItemProps {
   maxValueLength: number
   className?: string
   color?: 'primary' | 'secondary' | 'success'
+  disabled?: boolean
+  inputRef?: LegacyRef<HTMLInputElement>
 }
 
-export const AddItem: FC<AddItemProps> = ({ className, color, maxValueLength, onClick }) => {
+export const AddItem: FC<AddItemProps> = ({ className, color, maxValueLength, onClick, inputRef, disabled }) => {
   const [value, setValue] = useState('');
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value);
@@ -28,7 +30,6 @@ export const AddItem: FC<AddItemProps> = ({ className, color, maxValueLength, on
     }
   }
 
-
   return (
     <div className={className ? `adding ${className}` : 'adding'}>
       <Input
@@ -36,12 +37,14 @@ export const AddItem: FC<AddItemProps> = ({ className, color, maxValueLength, on
         onChange={changeHandler} value={value}
         onKeyDown={pressKeyHandler}
         type="text"
-        placeholder='Title'
+        placeholder="Title"
+        disabled={disabled}
+        inputRef={inputRef}
       />
 
       <IconButton
         onClick={handleClick}
-        disabled={value.length === 0 || value.length > maxValueLength}
+        disabled={value.length === 0 || value.length > maxValueLength || disabled}
         color={value.length > maxValueLength ? 'error' : color}
       />
     </div>
