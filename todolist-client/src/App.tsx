@@ -1,9 +1,13 @@
 import { ListsPage } from './pages/ListsPage';
+import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
 
 function App() {
   return (
     <>
-      <ListsPage/>
+      <RegisterPage/>
+      {/*<LoginPage/>*/}
+      {/*<ListsPage/>*/}
     </>
   )
 }

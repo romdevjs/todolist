@@ -8,10 +8,13 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input: FC<InputProps> = ({ placeholder, color, className, editMode, inputRef, ...props }) => {
-  const [ref, setRef] = useState<LegacyRef<HTMLInputElement>>(null)
+  const [ref, setRef] = useState<LegacyRef<HTMLInputElement>>(null);
+  const [isShowPlaceholder,setIsShowPlaceholder] = useState(true);
   const modification = color ? `text-field_${color}` : '';
   const editModeClassName = editMode ? 'text-field_edit' : '';
   const styles = `text-field ${modification} ${editModeClassName}`;
+
+  const toggleIsShowPlaceholder = () => setIsShowPlaceholder(!isShowPlaceholder);
 
   useEffect(() => {
     if (inputRef) {
@@ -21,7 +24,13 @@ export const Input: FC<InputProps> = ({ placeholder, color, className, editMode,
 
   return (
     <div className={className ? `${styles} ${className}` : styles}>
-      <input ref={ref} placeholder={placeholder} className="text-field__input" {...props}/>
+      <input
+        onFocus={toggleIsShowPlaceholder}
+        onBlur={toggleIsShowPlaceholder}
+        ref={ref}
+        placeholder={isShowPlaceholder ? placeholder : ''}
+        className="text-field__input" {...props}
+      />
       <span className="text-field__label">{placeholder}</span>
     </div>
   )

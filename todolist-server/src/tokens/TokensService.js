@@ -6,8 +6,8 @@ class TokensService {
     try {
       if (user) {
         const payload = {id: user.id};
-        const refresh = await jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET_KEY);
-        const access = await jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET_KEY);
+        const refresh = await jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET_KEY, {expiresIn:'5d'});
+        const access = await jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET_KEY, {expiresIn:'1d'});
         return {refresh, access};
       } else {
         return {message: 'User is not found!'}
@@ -38,6 +38,20 @@ class TokensService {
       if (!user) return null;
 
       return (!!user.tokens.access && user.tokens.access === access) ? user.id : null;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async checkUserByRefreshToken(refresh) {
+    try {
+      const decoded = jwt.verify(refresh, process.env.REFRESH_TOKEN_SECRET_KEY);
+
+      if (!decoded) return null;
+
+      const user = await Users.findById(decoded.id);
+      if (!user) return null;
+      return (!!user.tokens.refresh && user.tokens.refresh === refresh) ? user.id : null;
     } catch (e) {
       throw e;
     }

@@ -16,7 +16,7 @@ class UsersService {
         await Users.updateOne({email, tokens})
         return {id: user.id, tokens};
       } else {
-        throw {message:'User with such an email has already been registered!'};
+        throw {message: 'User with such an email has already been registered!'};
       }
     } catch (e) {
       throw e;
@@ -49,6 +49,21 @@ class UsersService {
       if (!candidate) throw {message: 'User is not found!'};
 
       const tokens = await TokensService.removeTokens();
+      await Users.findOneAndUpdate({_id: uid}, {tokens});
+
+      return {id: uid, tokens};
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async refresh(uid) {
+    try {
+      const candidate = await Users.findById(uid);
+
+      if (!candidate) throw {message: 'User is not found!'};
+
+      const tokens = await TokensService.generateTokens(candidate);
       await Users.findOneAndUpdate({_id: uid}, {tokens});
 
       return {id: uid, tokens};
